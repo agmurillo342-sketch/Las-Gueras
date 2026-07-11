@@ -265,17 +265,19 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   font-weight: 600;
   font-size: 0.85rem;
   border: 1px solid rgba(7,59,76,0.12);
+  cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
 .menu-tab:hover { background: var(--color-turquoise); color: var(--color-white); }
 .menu-tab.is-active { background: var(--color-coral); color: var(--color-white); border-color: transparent; }
 
+/* Solo se muestra la categoría seleccionada; el resto permanece oculta */
 .menu-category {
-  padding: 40px 0 8px;
+  display: none;
+  padding: 24px 0 8px;
   scroll-margin-top: calc(var(--header-height) + 64px);
-  border-top: 1px solid rgba(7,59,76,0.08);
 }
-.menu-category:first-of-type { border-top: none; }
+.menu-category.is-active { display: block; }
 
 .category-title {
   font-size: 1.4rem;

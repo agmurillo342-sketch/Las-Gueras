@@ -109,26 +109,26 @@
       <h2 class="section-title">Nuestro Menú</h2>
       <p class="section-subtitle">Precios sujetos a confirmación donde se indica "$--".</p>
 
-      <!-- Navegación por pestañas del menú -->
-      <nav class="menu-tabs" id="menuTabs" aria-label="Secciones del menú">
-        <a href="#bebidas" class="menu-tab">Bebidas</a>
-        <a href="#especialidades" class="menu-tab">Especialidades</a>
-        <a href="#pescado-frito" class="menu-tab">Pescado Frito</a>
-        <a href="#filete" class="menu-tab">Filete</a>
-        <a href="#pulpo" class="menu-tab">Pulpo</a>
-        <a href="#camarones" class="menu-tab">Camarones</a>
-        <a href="#entradas" class="menu-tab">Entradas</a>
-        <a href="#ensaladas" class="menu-tab">Ensaladas</a>
-        <a href="#coctel" class="menu-tab">Coctel</a>
-        <a href="#postres" class="menu-tab">Postres</a>
-        <a href="#jarras" class="menu-tab">Jarras</a>
-        <a href="#cerveza" class="menu-tab">Cerveza</a>
-        <a href="#vinos-licores" class="menu-tab">Vinos y Licores</a>
-        <a href="#otros" class="menu-tab">Otros</a>
+      <!-- Navegación por pestañas del menú: cada botón muestra solo su categoría -->
+      <nav class="menu-tabs" id="menuTabs" role="tablist" aria-label="Secciones del menú">
+        <button type="button" class="menu-tab" role="tab" data-target="bebidas">Bebidas</button>
+        <button type="button" class="menu-tab" role="tab" data-target="especialidades">Especialidades</button>
+        <button type="button" class="menu-tab" role="tab" data-target="pescado-frito">Pescado Frito</button>
+        <button type="button" class="menu-tab" role="tab" data-target="filete">Filete</button>
+        <button type="button" class="menu-tab" role="tab" data-target="pulpo">Pulpo</button>
+        <button type="button" class="menu-tab" role="tab" data-target="camarones">Camarones</button>
+        <button type="button" class="menu-tab" role="tab" data-target="entradas">Entradas</button>
+        <button type="button" class="menu-tab" role="tab" data-target="ensaladas">Ensaladas</button>
+        <button type="button" class="menu-tab" role="tab" data-target="coctel">Coctel</button>
+        <button type="button" class="menu-tab" role="tab" data-target="postres">Postres</button>
+        <button type="button" class="menu-tab" role="tab" data-target="jarras">Jarras</button>
+        <button type="button" class="menu-tab" role="tab" data-target="cerveza">Cerveza</button>
+        <button type="button" class="menu-tab" role="tab" data-target="vinos-licores">Vinos y Licores</button>
+        <button type="button" class="menu-tab" role="tab" data-target="otros">Otros</button>
       </nav>
 
       <!-- Bebidas -->
-      <div class="menu-category" id="bebidas">
+      <div class="menu-category" id="bebidas" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🍹</span> Bebidas</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Naranjada Mineral</span><span class="item-price">$80</span></li>
@@ -145,7 +145,7 @@
       </div>
 
       <!-- Especialidades -->
-      <div class="menu-category" id="especialidades">
+      <div class="menu-category" id="especialidades" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">⭐</span> Especialidades</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Pescado Zarandeado</span><span class="item-price">$--</span></li>
@@ -159,7 +159,7 @@
       </div>
 
       <!-- Pescado Frito -->
-      <div class="menu-category" id="pescado-frito">
+      <div class="menu-category" id="pescado-frito" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🐟</span> Pescado Frito</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Filete Relleno</span><span class="item-price">$--</span></li>
@@ -173,7 +173,7 @@
       </div>
 
       <!-- Filete -->
-      <div class="menu-category" id="filete">
+      <div class="menu-category" id="filete" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🐠</span> Filete</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Filete Empanizado</span><span class="item-price">$--</span></li>
@@ -186,7 +186,7 @@
       </div>
 
       <!-- Pulpo -->
-      <div class="menu-category" id="pulpo">
+      <div class="menu-category" id="pulpo" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🐙</span> Pulpo</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Pulpo a la Diabla</span><span class="item-price">$--</span></li>
@@ -198,7 +198,7 @@
       </div>
 
       <!-- Camarones -->
-      <div class="menu-category" id="camarones">
+      <div class="menu-category" id="camarones" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🍤</span> Camarones</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Camarones a la Diabla</span><span class="item-price">$--</span></li>
@@ -220,7 +220,7 @@
       </div>
 
       <!-- Entradas -->
-      <div class="menu-category" id="entradas">
+      <div class="menu-category" id="entradas" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🥗</span> Entradas</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Hamburguesa de Res</span><span class="item-price">$--</span></li>
@@ -235,7 +235,7 @@
       </div>
 
       <!-- Ensaladas -->
-      <div class="menu-category" id="ensaladas">
+      <div class="menu-category" id="ensaladas" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🥬</span> Ensaladas</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Ensalada de Camarón</span><span class="item-price">$--</span></li>
@@ -249,7 +249,7 @@
       </div>
 
       <!-- Coctel -->
-      <div class="menu-category" id="coctel">
+      <div class="menu-category" id="coctel" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🍸</span> Coctel</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Coctel de Camarón (grande)</span><span class="item-price">$--</span></li>
@@ -263,7 +263,7 @@
       </div>
 
       <!-- Postres -->
-      <div class="menu-category" id="postres">
+      <div class="menu-category" id="postres" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🍨</span> Postres</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Plátano con Lechera</span><span class="item-price">$--</span></li>
@@ -273,7 +273,7 @@
       </div>
 
       <!-- Jarras -->
-      <div class="menu-category" id="jarras">
+      <div class="menu-category" id="jarras" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🍺</span> Jarras</h3>
         <p class="category-note">Precio base $150 (ver Bebidas). Disponibles en los siguientes sabores:</p>
         <ul class="menu-tags">
@@ -289,7 +289,7 @@
       </div>
 
       <!-- Cerveza -->
-      <div class="menu-category" id="cerveza">
+      <div class="menu-category" id="cerveza" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🍻</span> Cerveza</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Coronita</span><span class="item-price">$--</span></li>
@@ -303,7 +303,7 @@
       </div>
 
       <!-- Vinos y Licores -->
-      <div class="menu-category" id="vinos-licores">
+      <div class="menu-category" id="vinos-licores" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🥃</span> Vinos y Licores</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Centenario</span><span class="item-price">$--</span></li>
@@ -319,7 +319,7 @@
       </div>
 
       <!-- Otros -->
-      <div class="menu-category" id="otros">
+      <div class="menu-category" id="otros" role="tabpanel">
         <h3 class="category-title"><span aria-hidden="true">🍽️</span> Otros</h3>
         <ul class="menu-grid">
           <li class="menu-item"><span class="item-name">Combinados</span><span class="item-price">$--</span></li>

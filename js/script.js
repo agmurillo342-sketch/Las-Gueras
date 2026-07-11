@@ -24,38 +24,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Resalta la pestaña del menú activa según la sección visible
+  // Menú por pestañas: al presionar una categoría se muestra solo esa sección
   const tabs = Array.from(document.querySelectorAll('.menu-tab'));
   const categories = Array.from(document.querySelectorAll('.menu-category'));
-
-  if (tabs.length && categories.length && 'IntersectionObserver' in window) {
-    const setActiveTab = (id) => {
-      tabs.forEach((tab) => {
-        tab.classList.toggle('is-active', tab.getAttribute('href') === `#${id}`);
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        if (visible.length > 0) {
-          setActiveTab(visible[0].target.id);
-        }
-      },
-      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
-    );
-
-    categories.forEach((section) => observer.observe(section));
-  }
-
-  // Centra la pestaña activa dentro del carrusel horizontal de categorías
   const menuTabsNav = document.getElementById('menuTabs');
-  if (menuTabsNav) {
+
+  const showCategory = (targetId) => {
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.target === targetId;
+      tab.classList.toggle('is-active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+    });
+    categories.forEach((section) => {
+      section.classList.toggle('is-active', section.id === targetId);
+    });
+  };
+
+  if (menuTabsNav && tabs.length && categories.length) {
     menuTabsNav.addEventListener('click', (event) => {
       const tab = event.target.closest('.menu-tab');
       if (!tab) return;
-      tabs.forEach((t) => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
+      showCategory(tab.dataset.target);
+      tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     });
+
+    // Muestra la primera categoría (Bebidas) por defecto
+    showCategory(tabs[0].dataset.target);
   }
 });
