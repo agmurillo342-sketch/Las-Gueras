@@ -44,11 +44,11 @@
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-        "opens": "00:00",
-        "closes": "00:00",
-        "description": "Horario pendiente de confirmar"
+        "opens": "09:00",
+        "closes": "20:00"
       }
     ],
+    "hasMap": "https://maps.app.goo.gl/NESaxGmG6GVfdMAj8",
     "acceptsReservations": "True",
     "menu": "#menu"
   }
@@ -369,14 +369,14 @@
             <span class="info-icon" aria-hidden="true">📍</span>
             <div>
               <strong>Dirección</strong>
-              <p>[Dirección pendiente]</p>
+              <p>[Dirección pendiente] — <a href="https://maps.app.goo.gl/NESaxGmG6GVfdMAj8" target="_blank" rel="noopener">Ver en Google Maps</a></p>
             </div>
           </li>
           <li>
             <span class="info-icon" aria-hidden="true">🕒</span>
             <div>
               <strong>Horario</strong>
-              <p>[Horario pendiente]</p>
+              <p>Todos los días: 9:00 a.m. – 8:00 p.m.</p>
             </div>
           </li>
           <li>
@@ -390,13 +390,15 @@
       </div>
 
       <div class="info-map">
-        <!-- TODO: reemplazar el query del iframe por la dirección/coordenadas reales del restaurante -->
-        <iframe
-          title="Ubicación de Restaurante Las Güeras en Google Maps"
-          src="https://www.google.com/maps?q=Restaurante+Las+G%C3%BCeras&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <!-- TODO: cuando tengamos el texto exacto de la dirección, reemplazar este bloque por el iframe
+             de Google Maps (Compartir → Insertar un mapa) para tener el mapa embebido en la página. -->
+        <a class="map-card" href="https://maps.app.goo.gl/NESaxGmG6GVfdMAj8" target="_blank" rel="noopener">
+          <span class="map-card-icon" aria-hidden="true">📍</span>
+          <span class="map-card-text">
+            <strong>Ver ubicación en Google Maps</strong>
+            <span>Toca para abrir el mapa y trazar tu ruta</span>
+          </span>
+        </a>
       </div>
     </div>
   </section>
@@ -421,7 +423,9 @@
       <div class="footer-contact">
         <strong>Contacto</strong>
         <p>[Dirección pendiente]</p>
+        <p>Todos los días: 9:00 a.m. – 8:00 p.m.</p>
         <p><a href="tel:+52XXXXXXXXXX">[Teléfono pendiente]</a></p>
+        <p><a href="https://maps.app.goo.gl/NESaxGmG6GVfdMAj8" target="_blank" rel="noopener">Cómo llegar →</a></p>
       </div>
     </div>
     <div class="footer-bottom">
