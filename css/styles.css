@@ -851,17 +851,16 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   box-shadow: 0 2px 6px rgba(43,15,10,0.08);
   border-bottom-left-radius: 4px;
 }
+.chat-msg-bot a {
+  color: var(--color-coral-dark);
+  text-decoration: underline;
+  font-weight: 600;
+}
 .chat-msg-user {
   align-self: flex-end;
   background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-coral) 100%);
   color: var(--color-white);
   border-bottom-right-radius: 4px;
-}
-.chat-msg-error {
-  align-self: flex-start;
-  background: rgba(192, 57, 41, 0.12);
-  color: #c0392b;
-  border-bottom-left-radius: 4px;
 }
 .chat-msg-typing { align-self: flex-start; display: flex; gap: 4px; padding: 12px 14px; }
 .chat-msg-typing span {
