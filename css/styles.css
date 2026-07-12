@@ -212,7 +212,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   -webkit-overflow-scrolling: touch;
   transform-origin: left center;
   backface-visibility: hidden;
-  transition: transform 0.6s cubic-bezier(.45, .05, .35, 1);
+  transition: transform 1.5s cubic-bezier(.65, 0, .35, 1);
 }
 .page.is-visible { display: block; }
 .page.is-active { transform: rotateY(0deg); z-index: 2; }
@@ -238,29 +238,32 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   inset: 0;
   z-index: 500;
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: 0;
 }
 .fish-transition-svg {
-  width: 200px;
+  position: absolute;
+  left: 50%;
+  top: 74%;
+  width: 150px;
+  margin-left: -75px;
   filter: drop-shadow(0 10px 24px rgba(43, 15, 10, 0.5));
 }
 .fish-transition.is-swimming {
-  animation: fish-fade 0.75s ease-in-out;
+  animation: fish-fade 1.5s ease-in-out;
 }
 .fish-transition.is-swimming .fish-transition-svg {
-  animation: fish-swim 0.75s cubic-bezier(.45, .05, .35, 1);
+  animation: fish-swim 1.5s cubic-bezier(.65, 0, .35, 1);
 }
 @keyframes fish-fade {
   0%, 100% { opacity: 0; }
-  15%, 85% { opacity: 1; }
+  12%, 88% { opacity: 1; }
 }
+/* El pez sale desde la parte baja de la pantalla y cruza de izquierda a derecha */
 @keyframes fish-swim {
-  0%   { transform: translateX(-75vw) rotate(-8deg) scale(0.75); }
-  50%  { transform: translateX(0) translateY(-1.5vh) rotate(3deg) scale(1); }
-  100% { transform: translateX(75vw) rotate(-6deg) scale(0.8); }
+  0%   { transform: translateX(-65vw) translateY(18vh) rotate(-12deg) scale(0.55); }
+  30%  { transform: translateX(-25vw) translateY(3vh) rotate(2deg) scale(0.9); }
+  60%  { transform: translateX(20vw) translateY(-3vh) rotate(-2deg) scale(1); }
+  100% { transform: translateX(65vw) translateY(-6vh) rotate(-8deg) scale(0.85); }
 }
 
 /* ==========================================================================

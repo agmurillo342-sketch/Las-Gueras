@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Secciones (páginas): solo una visible a la vez, accesibles únicamente
   // desde el menú de navegación. Al cambiar, la sección saliente gira como
   // la página de un libro mientras un pez la "voltea".
-  const PAGE_TRANSITION_MS = 600;
+  const PAGE_TRANSITION_MS = 1500;
   const pages = Array.from(document.querySelectorAll('.page'));
   const navLinks = Array.from(document.querySelectorAll('.nav-link[data-page]'));
   const fishTransition = document.getElementById('fishTransition');
