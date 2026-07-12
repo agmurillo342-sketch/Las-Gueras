@@ -130,11 +130,10 @@
 
   <!-- ===== MENÚ ===== -->
   <section class="menu-section page" id="page-menu">
-    <div class="container">
-      <h2 class="section-title">Nuestro Menú</h2>
-      <p class="section-subtitle">Precios sujetos a confirmación donde se indica "$--".</p>
-
-      <!-- Navegación por pestañas del menú: cada botón muestra solo su categoría -->
+    <div class="menu-header">
+      <!-- Navegación por pestañas del menú: cada botón muestra solo su categoría.
+           Vive fuera de la zona con scroll para que nunca se mueva. -->
+      <div class="container">
       <nav class="menu-tabs" id="menuTabs" role="tablist" aria-label="Secciones del menú">
         <button type="button" class="menu-tab" role="tab" data-target="bebidas">Bebidas</button>
         <button type="button" class="menu-tab" role="tab" data-target="especialidades">Especialidades</button>
@@ -151,6 +150,14 @@
         <button type="button" class="menu-tab" role="tab" data-target="vinos-licores">Vinos y Licores</button>
         <button type="button" class="menu-tab" role="tab" data-target="tequila">Tequila</button>
       </nav>
+      </div>
+    </div>
+
+    <!-- Solo esta zona se desliza; las pestañas de arriba nunca se mueven -->
+    <div class="menu-scroll">
+      <div class="container">
+        <h2 class="section-title">Nuestro Menú</h2>
+        <p class="section-subtitle">Precios sujetos a confirmación donde se indica "$--".</p>
 
       <!-- Bebidas -->
       <div class="menu-category" id="bebidas" role="tabpanel">
@@ -379,6 +386,7 @@
         </ul>
       </div>
 
+      </div>
     </div>
   </section>
 

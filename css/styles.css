@@ -234,6 +234,22 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   pointer-events: none;
 }
 
+/* La sección Menú no se desliza completa: el título y las pestañas quedan
+   fijos en una franja aparte y solo el listado de abajo (.menu-scroll) se
+   mueve. Esto evita el "sticky" anidado, que en varios navegadores móviles
+   se desfasa o se atrasa durante un deslizamiento rápido. */
+#page-menu {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.menu-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* ==========================================================================
    Pez de transición (voltea la página al cambiar de sección)
    ========================================================================== */
@@ -363,7 +379,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 /* ==========================================================================
    Menú
    ========================================================================== */
-.menu-section { background: var(--color-sand-light); padding: 64px 0 40px; }
+.menu-section { background: var(--color-sand-light); }
 .menu-section::before {
   content: '';
   position: absolute;
@@ -374,6 +390,8 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   pointer-events: none;
 }
 .menu-section .container { position: relative; }
+.menu-header { flex-shrink: 0; padding-top: 14px; box-shadow: 0 4px 10px rgba(43, 15, 10, 0.06); }
+.menu-scroll .container { padding-top: 28px; padding-bottom: 40px; }
 
 .section-title {
   font-size: clamp(1.7rem, 5vw, 2.4rem);
@@ -407,11 +425,6 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   gap: 8px;
   overflow-x: auto;
   padding: 6px 4px 18px;
-  margin-bottom: 12px;
-  position: sticky;
-  top: 0;
-  background: var(--color-sand-light);
-  z-index: 20;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
 }
