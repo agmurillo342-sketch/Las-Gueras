@@ -69,6 +69,8 @@
       <nav class="main-nav" id="mainNav">
         <a href="#page-inicio" class="nav-link is-current" data-page="inicio">Inicio</a>
         <a href="#page-menu" class="nav-link" data-page="menu">Menú</a>
+        <a href="#page-galeria" class="nav-link" data-page="galeria">Galería</a>
+        <a href="#page-opiniones" class="nav-link" data-page="opiniones">Opiniones</a>
         <a href="#page-nosotros" class="nav-link" data-page="nosotros">Nosotros</a>
         <a href="#page-contacto" class="nav-link" data-page="contacto">Contacto</a>
       </nav>
@@ -105,7 +107,7 @@
   <main class="pages-viewport" id="pagesViewport">
 
   <!-- ===== INICIO ===== -->
-  <section class="hero page is-visible is-active" id="page-inicio">
+  <section class="hero page" id="page-inicio">
     <div class="hero-waves" aria-hidden="true">
       <svg viewBox="0 0 1440 220" preserveAspectRatio="none"><path d="M0,96 C240,160 480,32 720,64 C960,96 1200,192 1440,128 L1440,220 L0,220 Z"></path></svg>
     </div>
@@ -387,6 +389,74 @@
     </div>
   </section>
 
+  <!-- ===== GALERÍA ===== -->
+  <section class="gallery-section page" id="page-galeria">
+    <div class="container">
+      <h2 class="section-title">Galería</h2>
+      <p class="section-subtitle">Un vistazo a nuestros platillos, preparados al momento con mariscos frescos.</p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="assets/gallery/camarones-tamarindo.jpg" alt="Camarones al tamarindo con ensalada y arroz" loading="lazy" width="1063" height="1100">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery/brochetas-camaron.jpg" alt="Brochetas de camarón a la parrilla con arroz y pan" loading="lazy" width="1100" height="681">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery/ceviche-pulpo.jpg" alt="Ceviche de pulpo y mariscos mixtos" loading="lazy" width="1008" height="504">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery/langosta.jpg" alt="Langosta frita con ensalada, pan y arroz" loading="lazy" width="1100" height="731">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery/camarones-diabla.jpg" alt="Camarones a la diabla con arroz y pan" loading="lazy" width="1100" height="673">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery/camarones-ajo.jpg" alt="Camarones al ajo con verduras y arroz" loading="lazy" width="1100" height="792">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OPINIONES ===== -->
+  <section class="reviews-section page" id="page-opiniones">
+    <div class="container">
+      <h2 class="section-title">Opiniones</h2>
+      <p class="section-subtitle reviews-rating"><span class="reviews-score">3.9</span> <span class="reviews-stars" aria-hidden="true">★★★★☆</span> <span class="reviews-source">en Google</span></p>
+      <div class="reviews-grid">
+        <article class="review-card">
+          <div class="review-head">
+            <span class="review-avatar" aria-hidden="true">M</span>
+            <div>
+              <strong class="review-name">Manuel Sosa</strong>
+              <span class="review-stars" aria-hidden="true">★★★★★</span>
+            </div>
+          </div>
+          <p class="review-text">"Un excelente destino para aquellos que desean compartir y disfrutar de un gran banquete y una maravillosa vista, no hay que hacer reservación y toda la comida se hace al momento lo cual le da un toque de sabor incomparable, disfrute de unos camarones al tamarindo, un exquisito manjar, procure llegar temprano en fines de semana ya que se llena rápido."</p>
+        </article>
+        <article class="review-card">
+          <div class="review-head">
+            <span class="review-avatar" aria-hidden="true">C</span>
+            <div>
+              <strong class="review-name">Cesar G</strong>
+              <span class="review-stars" aria-hidden="true">★★★★☆</span>
+            </div>
+          </div>
+          <p class="review-text">"La comida esta muy rica, las porciones bien servidas y los precios son justos. Buena atención. La ubicación muy bien. Lo que se puede mejorar son los baños."</p>
+        </article>
+        <article class="review-card">
+          <div class="review-head">
+            <span class="review-avatar" aria-hidden="true">C</span>
+            <div>
+              <strong class="review-name">Carlos Asdrubal Perez Ceballo</strong>
+              <span class="review-stars" aria-hidden="true">★★★★★</span>
+            </div>
+          </div>
+          <p class="review-text">"Sin duda fue el mejor lugar en el que comí durante todo el fin de semana en Punta Pérula. Los platillos de muy buena sazón, bien servidos. El servicio también es bueno. Súper recomendable, sin duda regresaría."</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== NOSOTROS / INFORMACIÓN ===== -->
   <section class="info-section page" id="page-nosotros">
     <div class="container info-grid">
@@ -406,7 +476,12 @@
             <span class="info-icon" aria-hidden="true">🕒</span>
             <div>
               <strong>Horario</strong>
-              <p>Todos los días: 9:00 a.m. – 8:00 p.m.</p>
+              <p>Todos los días: 9:00 a.m. – 8:00 p.m.
+                <span class="status-badge" aria-live="polite">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  <span class="status-label"></span>
+                </span>
+              </p>
             </div>
           </li>
           <li>
@@ -447,7 +522,12 @@
 
       <div class="footer-contact">
         <strong>Escríbenos</strong>
-        <p>Todos los días: 9:00 a.m. – 8:00 p.m.</p>
+        <p>Todos los días: 9:00 a.m. – 8:00 p.m.
+          <span class="status-badge" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label"></span>
+          </span>
+        </p>
         <p><a href="tel:+523151090369">+52 315 109 0369</a></p>
         <p><a href="https://maps.app.goo.gl/NESaxGmG6GVfdMAj8" target="_blank" rel="noopener">Cómo llegar →</a></p>
         <p><a href="https://wa.me/523151090369?text=Hola%2C%20quiero%20hacer%20una%20reservaci%C3%B3n" target="_blank" rel="noopener">Escribir por WhatsApp →</a></p>

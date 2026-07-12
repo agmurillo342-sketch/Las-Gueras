@@ -192,62 +192,23 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
 
 /* ==========================================================================
-   Navegación por secciones (una sola sección visible a la vez)
-   Cada sección es un "panel" apilado que ocupa toda la pantalla; al cambiar
-   de sección, la que sale gira como la página de un libro (eje izquierdo)
-   mientras un pez la "voltea".
+   Secciones de la página
+   El sitio se desliza normalmente (todas las secciones son visibles al
+   hacer scroll). Al elegir una sección desde el menú (☰) además se ve el
+   pez cruzando la pantalla, ver #fishTransition más abajo.
    ========================================================================== */
-.pages-viewport {
-  position: relative;
-  overflow: hidden;
-  min-height: calc(100vh - var(--header-height));
-  min-height: calc(100dvh - var(--header-height));
-  perspective: 1800px;
-}
-.page {
-  display: none;
-  position: absolute;
-  inset: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  transform-origin: left center;
-  backface-visibility: hidden;
-  transition: transform 1.5s cubic-bezier(.65, 0, .35, 1);
-}
-.page.is-visible { display: block; }
-/* Sin "transform" en reposo (a propósito): un ancestro con transform activo
-   rompe position:sticky de sus descendientes (como .menu-tabs) en varios
-   navegadores móviles. rotateY(0deg) y "none" se ven y transicionan igual,
-   así que solo se aplica un transform real mientras la página se va. */
-.page.is-active { z-index: 2; }
-.page.is-leaving {
-  transform: rotateY(-115deg);
-  z-index: 3;
-  box-shadow: 40px 0 60px rgba(0, 0, 0, 0.35);
-}
-/* Sombra sutil sobre el borde que "gira", como el pliegue de una hoja */
-.page.is-leaving::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 60%, rgba(0,0,0,0.25) 100%);
-  pointer-events: none;
-}
+.pages-viewport { position: relative; }
+.page { position: relative; }
 
-/* La sección Menú no se desliza completa: el título y las pestañas quedan
-   fijos en una franja aparte y solo el listado de abajo (.menu-scroll) se
-   mueve. Esto evita el "sticky" anidado, que en varios navegadores móviles
-   se desfasa o se atrasa durante un deslizamiento rápido. */
-#page-menu {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.menu-scroll {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+/* Dentro de "Menú" las pestañas de categorías quedan fijas (sticky) bajo el
+   header mientras se hace scroll por la lista de platillos. */
+.menu-header {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 40;
+  background: var(--color-sand-light);
+  padding-top: 14px;
+  box-shadow: 0 4px 10px rgba(43, 15, 10, 0.06);
 }
 
 /* ==========================================================================
@@ -390,7 +351,6 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   pointer-events: none;
 }
 .menu-section .container { position: relative; }
-.menu-header { flex-shrink: 0; padding-top: 14px; box-shadow: 0 4px 10px rgba(43, 15, 10, 0.06); }
 .menu-scroll .container { padding-top: 28px; padding-bottom: 40px; }
 
 .section-title {
@@ -521,6 +481,118 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   font-size: 0.88rem;
   box-shadow: 0 2px 8px rgba(43,15,10,0.08);
 }
+
+/* ==========================================================================
+   Galería
+   ========================================================================== */
+.gallery-section { padding: 56px 0 64px; background: var(--color-white); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.gallery-item {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  aspect-ratio: 4 / 3;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+
+/* ==========================================================================
+   Opiniones
+   ========================================================================== */
+.reviews-section { padding: 56px 0 64px; background: var(--color-sand-light); }
+.reviews-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(245, 166, 35, 0.14) 0%, transparent 40%),
+    radial-gradient(circle at 95% 90%, rgba(255, 90, 54, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+}
+.reviews-section .container { position: relative; }
+.reviews-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.reviews-score { font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem; color: var(--color-deep); }
+.reviews-stars { color: var(--color-gold); letter-spacing: 2px; }
+.reviews-source { color: var(--color-text-muted); font-size: 0.88rem; }
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.review-card {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(43,15,10,0.08);
+}
+.review-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.review-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-white);
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-coral) 100%);
+}
+.review-name { display: block; color: var(--color-deep); font-size: 0.95rem; }
+.review-head .review-stars { color: var(--color-gold); font-size: 0.85rem; letter-spacing: 1px; }
+.review-text { margin: 0; color: var(--color-text-muted); font-size: 0.92rem; }
+
+/* ==========================================================================
+   Indicador de abierto / cerrado
+   ========================================================================== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 3px 10px 3px 8px;
+  border-radius: 999px;
+  background: rgba(43, 15, 10, 0.06);
+  font-size: 0.78rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #9a9a9a;
+  flex-shrink: 0;
+}
+.status-badge.is-open { color: #1e8e3e; background: rgba(30, 142, 62, 0.12); }
+.status-badge.is-open .status-dot { background: #2ecc71; box-shadow: 0 0 6px rgba(46, 204, 113, 0.7); }
+.status-badge.is-closed { color: #c0392b; background: rgba(192, 57, 41, 0.1); }
+.status-badge.is-closed .status-dot { background: #e74c3c; box-shadow: 0 0 6px rgba(231, 76, 60, 0.6); }
+.site-footer .status-badge.is-open { color: #6fe39a; background: rgba(46, 204, 113, 0.15); }
+.site-footer .status-badge.is-closed { color: #ff9a8b; background: rgba(231, 76, 60, 0.18); }
 
 /* ==========================================================================
    Nosotros / Info
@@ -693,6 +765,9 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 
   .menu-grid { grid-template-columns: repeat(2, 1fr); }
 
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+
   .info-grid { grid-template-columns: 1fr 1fr; align-items: start; }
 
   .footer-inner { grid-template-columns: 1.1fr 1fr; }
@@ -704,6 +779,9 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   .header-whatsapp { display: inline-flex; }
 
   .menu-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .reviews-grid { grid-template-columns: repeat(3, 1fr); }
 
   .hero { padding: 110px 0 160px; }
 

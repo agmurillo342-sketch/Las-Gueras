@@ -1,12 +1,14 @@
 # Restaurante Las Güeras — sitio web
 
-Sitio estático (HTML/CSS/JS puro, sin backend ni frameworks) para la marisquería. Mobile-first, con navegación tipo app por secciones, mapa embebido y botón flotante de WhatsApp.
+Sitio estático (HTML/CSS/JS puro, sin backend ni frameworks) para la marisquería. Mobile-first, con galería, opiniones, indicador de abierto/cerrado y botón flotante de WhatsApp.
 
-## Navegación por secciones (app-like)
+## Navegación
 
-El sitio ya no es una página larga de scroll continuo: solo una sección ("página") está visible a la vez — Inicio, Menú, Nosotros o Contacto — y la única forma de moverse entre ellas es abriendo el menú de las tres líneas (☰) en la esquina superior derecha del header (funciona igual en móvil y escritorio). Cada sección es un panel a pantalla completa con su propio scroll interno; nunca se puede llegar a otra sección deslizando.
+El sitio es una página larga de scroll normal: todas las secciones (Inicio, Menú, Galería, Opiniones, Nosotros, Contacto) están una debajo de otra y se ven deslizando con normalidad, como cualquier sitio de una sola página.
 
-Al elegir una sección, la sección actual gira sobre su borde izquierdo como si fuera la página de un libro (transformación 3D con `perspective`/`rotateY`, ver `.pages-viewport` y `.page.is-leaving` en `css/styles.css`), revelando la nueva sección debajo. Al mismo tiempo, un pez rojo/naranja (`#fishTransition`, SVG inline en `index.html`) nada de un lado al otro de la pantalla como si "volteara" la página. Toda la orquestación vive en `js/script.js`, función `showPage`. Dentro de la sección "Menú" las pestañas de categorías (Bebidas, Camarones, etc.) siguen funcionando igual que antes, mostrando solo una categoría a la vez.
+Además, el menú de las tres líneas (☰) en el header permite saltar directo a cualquier sección. Al elegir una sección desde ahí, un pez rojo/naranja (`#fishTransition`, SVG inline en `index.html`) cruza la pantalla como si "volteara la página" hacia esa sección, mientras el navegador hace scroll suave (`scroll-behavior: smooth`) hasta ella. Esta animación solo ocurre al usar el menú ☰; el scroll normal (con el dedo o la rueda del mouse) no la dispara. Toda la orquestación vive en `js/script.js` (`triggerFishSwim`, listeners sobre `.nav-link[data-page]`); el enlace activo en el menú también se resalta automáticamente según la sección visible mientras se hace scroll (`IntersectionObserver`).
+
+Dentro de la sección "Menú" las pestañas de categorías (Bebidas, Camarones, etc.) quedan fijas (`position: sticky`) bajo el header mientras se recorre la lista de platillos, y muestran solo una categoría a la vez.
 
 ## Cómo verlo
 
@@ -15,10 +17,11 @@ Abre `index.html` directamente en el navegador, o sirve la carpeta con cualquier
 ## Estructura
 
 ```
-index.html        Marcado completo (header, secciones Inicio/Menú/Nosotros/Contacto)
-css/styles.css     Estilos mobile-first, paleta cálida (rojo, naranja, dorado) inspirada en el logo
-js/script.js       Navegación por secciones, menú del header, pestañas del menú, año del footer
-assets/logo.png    Logo real del negocio (recortado a 512×512, fondo transparente)
+index.html          Marcado completo (header, secciones Inicio/Menú/Galería/Opiniones/Nosotros/Contacto)
+css/styles.css       Estilos mobile-first, paleta cálida (rojo, naranja, dorado) inspirada en el logo
+js/script.js         Menú del header, scroll-spy, pez de transición, pestañas del menú, indicador abierto/cerrado, año del footer
+assets/logo.png      Logo real del negocio (recortado a 512×512, fondo transparente)
+assets/gallery/      6 fotos de platillos usadas en la sección Galería
 ```
 
 ## Logo y paleta de colores
@@ -38,6 +41,15 @@ Se reemplazó el logo genérico por el logo real proporcionado (círculo rojo-na
 Se cargó "Todos los días: 9:00 a.m. – 8:00 p.m." en la sección Nosotros, el footer y el JSON-LD (`openingHoursSpecification`), asumiendo que el horario aplica los 7 días de la semana ya que no se especificaron días distintos. Si el restaurante cierra algún día o tiene horario distinto el fin de semana, avísame para ajustarlo.
 
 El teléfono/WhatsApp real (+52 315 109 0369) ya está cargado en todos los enlaces `tel:` y `wa.me`, y en el JSON-LD. Para los enlaces de WhatsApp se usó el formato `52` + 10 dígitos (sin el "1" extra que antes se usaba para celulares mexicanos), que es el formato vigente desde que México eliminó ese requisito en la marcación internacional.
+
+Junto al horario (en "Nosotros" y en el footer) aparece un indicador de "Abierto ahora" / "Cerrado ahora" con un punto verde o rojo. Se calcula en el navegador del visitante (`js/script.js`, `updateOpenStatus`) comparando la hora local del dispositivo contra el rango 9:00–20:00; se recalcula cada minuto. Como usa la hora local del navegador, asume que el visitante está en la misma zona horaria que el restaurante — si reciben visitas de otros husos horarios y quieren fijar la zona exacta, avísenme para ajustarlo.
+
+## Galería y Opiniones
+
+Se agregaron dos secciones nuevas, accesibles también desde el menú ☰:
+
+- **Galería**: 6 fotos de platillos reales del restaurante (camarones al tamarindo, brochetas de camarón, ceviche de pulpo, langosta frita, camarones a la diabla y camarones al ajo), guardadas en `assets/gallery/` ya optimizadas para web.
+- **Opiniones**: calificación general "3.9 ★" como título de la subsección, y 3 reseñas reales de Google (Manuel Sosa, Cesar G y Carlos Asdrubal Perez Ceballo) con su calificación individual en estrellas. Si más adelante quieren mostrar reseñas distintas o actualizar la calificación, solo hay que editar el bloque `<section class="reviews-section" id="page-opiniones">` en `index.html`.
 
 ## Notas sobre el menú (actualizado a partir de fotos del menú físico)
 

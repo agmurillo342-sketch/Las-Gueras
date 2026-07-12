@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Menú de navegación (hamburguesa) — única forma de moverse entre secciones
+  // Menú de navegación (hamburguesa)
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
 
@@ -22,11 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Secciones (páginas): solo una visible a la vez, accesibles únicamente
-  // desde el menú de navegación. Al cambiar, la sección saliente gira como
-  // la página de un libro mientras un pez la "voltea".
-  const PAGE_TRANSITION_MS = 1500;
-  const pages = Array.from(document.querySelectorAll('.page'));
+  // El sitio se desliza normalmente por todas las secciones. Al elegir una
+  // sección desde el menú (☰) además cruza la pantalla un pez, como si
+  // "volteara la página" hacia esa sección.
   const navLinks = Array.from(document.querySelectorAll('.nav-link[data-page]'));
   const fishTransition = document.getElementById('fishTransition');
 
@@ -43,37 +41,43 @@ document.addEventListener('DOMContentLoaded', () => {
     fishTransition.classList.add('is-swimming');
   };
 
-  const showPage = (pageId) => {
-    const target = document.getElementById(`page-${pageId}`);
-    if (!target) return;
-    const current = pages.find((page) => page.classList.contains('is-visible'));
-    if (current === target) { closeNav(); return; }
-
-    triggerFishSwim();
-
-    // La página entrante ya queda lista debajo; se revela conforme la
-    // saliente gira hacia su izquierda, como si se volteara una hoja.
-    target.classList.add('is-visible', 'is-active');
-    target.scrollTop = 0;
-
-    if (current) {
-      current.classList.remove('is-active');
-      current.classList.add('is-leaving');
-      window.setTimeout(() => {
-        current.classList.remove('is-visible', 'is-leaving');
-      }, PAGE_TRANSITION_MS);
-    }
-
-    setCurrentNavLink(pageId);
-    closeNav();
-  };
-
-  document.addEventListener('click', (event) => {
-    const trigger = event.target.closest('[data-page]');
-    if (!trigger) return;
-    event.preventDefault();
-    showPage(trigger.dataset.page);
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      triggerFishSwim();
+      setCurrentNavLink(link.dataset.page);
+      closeNav();
+    });
   });
+
+  // Resalta en el menú la sección que está visible mientras se hace scroll
+  const sections = Array.from(document.querySelectorAll('.pages-viewport > .page[id^="page-"]'));
+  if (sections.length && 'IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setCurrentNavLink(entry.target.id.replace('page-', ''));
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach((section) => sectionObserver.observe(section));
+  }
+
+  // Indicador de abierto/cerrado según el horario (todos los días 9:00–20:00)
+  const updateOpenStatus = () => {
+    const badges = document.querySelectorAll('.status-badge');
+    if (!badges.length) return;
+    const now = new Date();
+    const hour = now.getHours() + now.getMinutes() / 60;
+    const isOpen = hour >= 9 && hour < 20;
+    badges.forEach((badge) => {
+      badge.classList.toggle('is-open', isOpen);
+      badge.classList.toggle('is-closed', !isOpen);
+      const label = badge.querySelector('.status-label');
+      if (label) label.textContent = isOpen ? 'Abierto ahora' : 'Cerrado ahora';
+    });
+  };
+  updateOpenStatus();
+  setInterval(updateOpenStatus, 60000);
 
   // Menú por pestañas: al presionar una categoría se muestra solo esa sección
   const tabs = Array.from(document.querySelectorAll('.menu-tab'));
