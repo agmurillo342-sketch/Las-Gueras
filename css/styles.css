@@ -193,21 +193,80 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 
 /* ==========================================================================
    Navegación por secciones (una sola sección visible a la vez)
+   Cada sección es un "panel" apilado que ocupa toda la pantalla; al cambiar
+   de sección, la que sale gira como la página de un libro (eje izquierdo)
+   mientras un pez la "voltea".
    ========================================================================== */
+.pages-viewport {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height));
+  perspective: 1800px;
+}
 .page {
   display: none;
-  opacity: 0;
-  min-height: calc(100vh - var(--header-height));
-  transition: opacity 0.28s ease;
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(.45, .05, .35, 1);
 }
 .page.is-visible { display: block; }
-.page.is-active { opacity: 1; }
+.page.is-active { transform: rotateY(0deg); z-index: 2; }
+.page.is-leaving {
+  transform: rotateY(-115deg);
+  z-index: 3;
+  box-shadow: 40px 0 60px rgba(0, 0, 0, 0.35);
+}
+/* Sombra sutil sobre el borde que "gira", como el pliegue de una hoja */
+.page.is-leaving::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 60%, rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Pez de transición (voltea la página al cambiar de sección)
+   ========================================================================== */
+.fish-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+.fish-transition-svg {
+  width: 200px;
+  filter: drop-shadow(0 10px 24px rgba(43, 15, 10, 0.5));
+}
+.fish-transition.is-swimming {
+  animation: fish-fade 0.75s ease-in-out;
+}
+.fish-transition.is-swimming .fish-transition-svg {
+  animation: fish-swim 0.75s cubic-bezier(.45, .05, .35, 1);
+}
+@keyframes fish-fade {
+  0%, 100% { opacity: 0; }
+  15%, 85% { opacity: 1; }
+}
+@keyframes fish-swim {
+  0%   { transform: translateX(-75vw) rotate(-8deg) scale(0.75); }
+  50%  { transform: translateX(0) translateY(-1.5vh) rotate(3deg) scale(1); }
+  100% { transform: translateX(75vw) rotate(-6deg) scale(0.8); }
+}
 
 /* ==========================================================================
    Hero
    ========================================================================== */
 .hero {
-  position: relative;
   background: linear-gradient(160deg, var(--color-deep) 0%, var(--color-ember) 55%, var(--color-gold) 100%);
   padding: 56px 0 130px;
   overflow: hidden;
@@ -295,6 +354,16 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
    Menú
    ========================================================================== */
 .menu-section { background: var(--color-sand-light); padding: 64px 0 40px; }
+.menu-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 8% 8%, rgba(245, 166, 35, 0.14) 0%, transparent 35%),
+    radial-gradient(circle at 95% 30%, rgba(255, 90, 54, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+}
+.menu-section .container { position: relative; }
 
 .section-title {
   font-size: clamp(1.7rem, 5vw, 2.4rem);
@@ -330,7 +399,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   padding: 6px 4px 18px;
   margin-bottom: 12px;
   position: sticky;
-  top: var(--header-height);
+  top: 0;
   background: var(--color-sand-light);
   z-index: 20;
   scrollbar-width: thin;
@@ -375,6 +444,9 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.category-title span {
+  filter: drop-shadow(0 0 10px rgba(245, 166, 35, 0.55));
 }
 .category-note {
   color: var(--color-text-muted);
@@ -431,7 +503,17 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
    Nosotros / Info
    ========================================================================== */
 .info-section { padding: 64px 0; background: var(--color-white); }
+.info-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(245, 166, 35, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(255, 90, 54, 0.08) 0%, transparent 35%);
+  pointer-events: none;
+}
 .info-grid {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
   gap: 36px;
@@ -450,6 +532,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   font-size: 1.2rem;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-coral) 100%);
+  box-shadow: 0 0 16px rgba(245, 166, 35, 0.5);
 }
 .info-list strong { color: var(--color-deep); display: block; margin-bottom: 2px; }
 .info-list p { margin: 0; color: var(--color-text-muted); }
@@ -465,6 +548,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 .info-map iframe { width: 100%; height: 100%; min-height: 280px; border: 0; }
 
 .map-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -476,7 +560,15 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   padding: 32px 24px;
   background: linear-gradient(160deg, var(--color-deep) 0%, var(--color-ember) 100%);
   text-align: center;
+  overflow: hidden;
   transition: transform 0.15s ease;
+}
+.map-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(245, 166, 35, 0.35) 0%, transparent 60%);
+  pointer-events: none;
 }
 .map-card:hover { transform: scale(1.01); }
 .map-card-icon { font-size: 2.6rem; }
@@ -488,8 +580,19 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
    Footer
    ========================================================================== */
 .site-footer { background: var(--color-deep); color: rgba(255,255,255,0.85); padding: 56px 0 0; }
+.site-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(245, 166, 35, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 90% 60%, rgba(255, 90, 54, 0.18) 0%, transparent 45%);
+  pointer-events: none;
+}
+.site-footer .container, .site-footer .footer-bottom { position: relative; }
 .site-footer .section-title { color: var(--color-white); margin-bottom: 40px; }
 .footer-inner {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
@@ -506,16 +609,12 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 }
 .footer-brand p { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
 
-.footer-social strong, .footer-contact strong {
+.footer-contact strong {
   display: block;
   color: var(--color-white);
   margin-bottom: 10px;
   font-size: 0.95rem;
 }
-.social-links { display: flex; flex-direction: column; gap: 8px; }
-.social-links a { color: rgba(255,255,255,0.8); }
-.social-links a:hover { color: var(--color-gold); }
-.pending { color: var(--color-coral); font-size: 0.78rem; }
 
 .footer-contact p { margin: 0 0 6px; color: rgba(255,255,255,0.75); font-size: 0.92rem; }
 .footer-contact a:hover { color: var(--color-gold); }
@@ -573,7 +672,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 
   .info-grid { grid-template-columns: 1fr 1fr; align-items: start; }
 
-  .footer-inner { grid-template-columns: 1.2fr 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1.1fr 1fr; }
 
   .hero-logo-wrap, .hero-logo { width: 190px; height: 190px; }
 }

@@ -22,16 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Secciones (páginas) con transición de difuminado: solo una visible a la vez,
-  // accesibles únicamente desde el menú de navegación.
-  const PAGE_TRANSITION_MS = 280;
+  // Secciones (páginas): solo una visible a la vez, accesibles únicamente
+  // desde el menú de navegación. Al cambiar, la sección saliente gira como
+  // la página de un libro mientras un pez la "voltea".
+  const PAGE_TRANSITION_MS = 600;
   const pages = Array.from(document.querySelectorAll('.page'));
   const navLinks = Array.from(document.querySelectorAll('.nav-link[data-page]'));
+  const fishTransition = document.getElementById('fishTransition');
 
   const setCurrentNavLink = (pageId) => {
     navLinks.forEach((link) => {
       link.classList.toggle('is-current', link.dataset.page === pageId);
     });
+  };
+
+  const triggerFishSwim = () => {
+    if (!fishTransition) return;
+    fishTransition.classList.remove('is-swimming');
+    void fishTransition.offsetWidth; // reflow para poder repetir la animación
+    fishTransition.classList.add('is-swimming');
   };
 
   const showPage = (pageId) => {
@@ -40,25 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const current = pages.find((page) => page.classList.contains('is-visible'));
     if (current === target) { closeNav(); return; }
 
-    const revealTarget = () => {
-      target.classList.add('is-visible');
-      target.scrollTop = 0;
-      // Forzar reflow para que la transición de opacidad se reproduzca desde 0
-      void target.offsetHeight;
-      requestAnimationFrame(() => target.classList.add('is-active'));
-    };
+    triggerFishSwim();
+
+    // La página entrante ya queda lista debajo; se revela conforme la
+    // saliente gira hacia su izquierda, como si se volteara una hoja.
+    target.classList.add('is-visible', 'is-active');
+    target.scrollTop = 0;
 
     if (current) {
       current.classList.remove('is-active');
+      current.classList.add('is-leaving');
       window.setTimeout(() => {
-        current.classList.remove('is-visible');
+        current.classList.remove('is-visible', 'is-leaving');
       }, PAGE_TRANSITION_MS);
-      window.setTimeout(revealTarget, PAGE_TRANSITION_MS);
-    } else {
-      revealTarget();
     }
 
-    window.scrollTo(0, 0);
     setCurrentNavLink(pageId);
     closeNav();
   };
