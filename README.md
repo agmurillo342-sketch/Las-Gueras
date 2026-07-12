@@ -30,7 +30,7 @@ Se reemplazó el logo genérico por el logo real proporcionado (círculo rojo-na
 - Nombre exacto del negocio (se usó "Las Güeras" inferido del nombre del repositorio; confirmar).
 - **Dirección en texto plano** (calle, colonia, ciudad, estado, CP). Ya tenemos el link corto de Google Maps (`https://maps.app.goo.gl/NESaxGmG6GVfdMAj8`) y se usó como botón "Ver en Google Maps" / "Cómo llegar", pero ese link no se pudo resolver automáticamente a una dirección de texto (el entorno donde corrió esta tarea bloquea el acceso saliente a dominios de Google). Faltan por llenar: el texto visible en la sección Nosotros/footer y los campos `streetAddress`/`addressLocality`/`addressRegion`/`postalCode` del JSON-LD en `index.html`.
 - **Mapa embebido**: por ahora la sección "Nosotros" muestra una tarjeta con botón que abre Google Maps en una pestaña nueva (en vez de un iframe embebido), porque los links cortos de `maps.app.goo.gl` no se pueden insertar de forma confiable en un `<iframe>`. Cuando tengan la dirección en texto, se puede generar el iframe real desde Google Maps → Compartir → "Insertar un mapa" y pegar ese código en `index.html` (dentro de `.info-map`).
-- Precios marcados con `$--`: Ostiones Zarandeados, Docena de Ostión, Balazo de Ostión, Callo de Hacha, Tiras de Atún, Molcajete de Aguachile, todos los Postres, Vinos y Licores, y Tequila 30-30 (no se veían en las fotos del menú proporcionadas).
+- Precios marcados con `$--`: Callo de Hacha, Tiras de Atún, Molcajete de Aguachile, todos los Postres, Vinos y Licores, y Tequila 30-30 (no se veían en las fotos del menú proporcionadas).
 - Imagen para `og:image` en las metaetiquetas Open Graph (opcional, mejora la vista previa al compartir el enlace).
 
 ## Horario y teléfono
