@@ -1,6 +1,10 @@
 # Restaurante Las Güeras — sitio web
 
-Sitio estático (HTML/CSS/JS puro, sin backend ni frameworks) para la marisquería. Mobile-first, con navegación por menú, mapa embebido y botón flotante de WhatsApp.
+Sitio estático (HTML/CSS/JS puro, sin backend ni frameworks) para la marisquería. Mobile-first, con navegación tipo app por secciones, mapa embebido y botón flotante de WhatsApp.
+
+## Navegación por secciones (app-like)
+
+El sitio ya no es una página larga de scroll continuo: solo una sección ("página") está visible a la vez — Inicio, Menú, Nosotros o Contacto — y la única forma de moverse entre ellas es abriendo el menú de las tres líneas (☰) en la esquina superior derecha del header (funciona igual en móvil y escritorio). Al elegir una sección, la anterior se difumina (fade out) y la nueva aparece con un fade in (`.page`, `.page.is-visible`, `.page.is-active` en `css/styles.css`; lógica en `js/script.js`, función `showPage`). Dentro de la sección "Menú" las pestañas de categorías (Bebidas, Camarones, etc.) siguen funcionando igual que antes, mostrando solo una categoría a la vez.
 
 ## Cómo verlo
 

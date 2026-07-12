@@ -5,24 +5,70 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Menú de navegación móvil (hamburguesa)
+  // Menú de navegación (hamburguesa) — única forma de moverse entre secciones
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
+
+  const closeNav = () => {
+    if (!mainNav || !navToggle) return;
+    mainNav.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  };
 
   if (navToggle && mainNav) {
     navToggle.addEventListener('click', () => {
       const isOpen = mainNav.classList.toggle('is-open');
       navToggle.setAttribute('aria-expanded', String(isOpen));
     });
-
-    // Cierra el menú al elegir una opción
-    mainNav.querySelectorAll('.nav-link').forEach((link) => {
-      link.addEventListener('click', () => {
-        mainNav.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
   }
+
+  // Secciones (páginas) con transición de difuminado: solo una visible a la vez,
+  // accesibles únicamente desde el menú de navegación.
+  const PAGE_TRANSITION_MS = 280;
+  const pages = Array.from(document.querySelectorAll('.page'));
+  const navLinks = Array.from(document.querySelectorAll('.nav-link[data-page]'));
+
+  const setCurrentNavLink = (pageId) => {
+    navLinks.forEach((link) => {
+      link.classList.toggle('is-current', link.dataset.page === pageId);
+    });
+  };
+
+  const showPage = (pageId) => {
+    const target = document.getElementById(`page-${pageId}`);
+    if (!target) return;
+    const current = pages.find((page) => page.classList.contains('is-visible'));
+    if (current === target) { closeNav(); return; }
+
+    const revealTarget = () => {
+      target.classList.add('is-visible');
+      target.scrollTop = 0;
+      // Forzar reflow para que la transición de opacidad se reproduzca desde 0
+      void target.offsetHeight;
+      requestAnimationFrame(() => target.classList.add('is-active'));
+    };
+
+    if (current) {
+      current.classList.remove('is-active');
+      window.setTimeout(() => {
+        current.classList.remove('is-visible');
+      }, PAGE_TRANSITION_MS);
+      window.setTimeout(revealTarget, PAGE_TRANSITION_MS);
+    } else {
+      revealTarget();
+    }
+
+    window.scrollTo(0, 0);
+    setCurrentNavLink(pageId);
+    closeNav();
+  };
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-page]');
+    if (!trigger) return;
+    event.preventDefault();
+    showPage(trigger.dataset.page);
+  });
 
   // Menú por pestañas: al presionar una categoría se muestra solo esa sección
   const tabs = Array.from(document.querySelectorAll('.menu-tab'));

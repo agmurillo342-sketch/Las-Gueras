@@ -154,6 +154,17 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   transition: color 0.15s ease;
 }
 .nav-link:hover { color: var(--color-gold); }
+.nav-link.is-current { color: var(--color-gold); position: relative; }
+.nav-link.is-current::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 22px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-coral));
+}
 
 .header-whatsapp { display: none; padding: 9px 18px; font-size: 0.85rem; }
 
@@ -179,6 +190,18 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+/* ==========================================================================
+   Navegación por secciones (una sola sección visible a la vez)
+   ========================================================================== */
+.page {
+  display: none;
+  opacity: 0;
+  min-height: calc(100vh - var(--header-height));
+  transition: opacity 0.28s ease;
+}
+.page.is-visible { display: block; }
+.page.is-active { opacity: 1; }
 
 /* ==========================================================================
    Hero
@@ -464,7 +487,8 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 /* ==========================================================================
    Footer
    ========================================================================== */
-.site-footer { background: var(--color-deep); color: rgba(255,255,255,0.85); padding: 48px 0 0; }
+.site-footer { background: var(--color-deep); color: rgba(255,255,255,0.85); padding: 56px 0 0; }
+.site-footer .section-title { color: var(--color-white); margin-bottom: 40px; }
 .footer-inner {
   display: grid;
   grid-template-columns: 1fr;
@@ -555,22 +579,13 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 }
 
 @media (min-width: 960px) {
-  .main-nav {
-    position: static;
-    flex-direction: row;
-    max-height: none;
-    overflow: visible;
-    background: none;
-    padding: 0;
-    gap: 30px;
-  }
-  .nav-link { border-bottom: none; padding: 0; }
-  .nav-toggle { display: none; }
   .header-whatsapp { display: inline-flex; }
 
   .menu-grid { grid-template-columns: repeat(3, 1fr); }
 
   .hero { padding: 110px 0 160px; }
+
+  .main-nav.is-open { width: 320px; left: auto; }
 }
 
 @media (min-width: 1180px) {
