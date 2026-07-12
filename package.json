@@ -1,0 +1,9 @@
+{
+  "name": "las-gueras-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio estático de Restaurante Las Güeras + función serverless del asistente virtual",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.111.0"
+  }
+}

@@ -106,4 +106,86 @@ document.addEventListener('DOMContentLoaded', () => {
     // Muestra la primera categoría (Bebidas) por defecto
     showCategory(tabs[0].dataset.target);
   }
+
+  // Asistente virtual: chat que consulta la función serverless /api/chat
+  const chatToggle = document.getElementById('chatToggle');
+  const chatWindow = document.getElementById('chatWindow');
+  const chatClose = document.getElementById('chatClose');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+
+  if (chatToggle && chatWindow && chatForm && chatInput && chatMessages) {
+    const chatHistory = [];
+
+    const openChat = () => {
+      chatWindow.classList.add('is-open');
+      chatWindow.setAttribute('aria-hidden', 'false');
+      chatToggle.setAttribute('aria-expanded', 'true');
+      chatInput.focus();
+    };
+    const closeChat = () => {
+      chatWindow.classList.remove('is-open');
+      chatWindow.setAttribute('aria-hidden', 'true');
+      chatToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    chatToggle.addEventListener('click', () => {
+      chatWindow.classList.contains('is-open') ? closeChat() : openChat();
+    });
+    if (chatClose) chatClose.addEventListener('click', closeChat);
+
+    const addMessage = (text, kind) => {
+      const el = document.createElement('div');
+      el.className = `chat-msg chat-msg-${kind}`;
+      el.textContent = text;
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return el;
+    };
+
+    const addTyping = () => {
+      const el = document.createElement('div');
+      el.className = 'chat-msg-typing';
+      el.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return el;
+    };
+
+    chatForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      addMessage(message, 'user');
+      chatHistory.push({ role: 'user', content: message });
+      chatInput.value = '';
+      chatInput.disabled = true;
+      const typingEl = addTyping();
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, history: chatHistory.slice(0, -1) }),
+        });
+        const data = await response.json();
+        typingEl.remove();
+
+        if (!response.ok || !data.reply) {
+          addMessage(data.error || 'No se pudo generar una respuesta. Intenta de nuevo en un momento.', 'error');
+        } else {
+          addMessage(data.reply, 'bot');
+          chatHistory.push({ role: 'assistant', content: data.reply });
+        }
+      } catch (err) {
+        typingEl.remove();
+        addMessage('No se pudo conectar con el asistente. Revisa tu conexión e intenta de nuevo.', 'error');
+      } finally {
+        chatInput.disabled = false;
+        chatInput.focus();
+      }
+    });
+  }
 });

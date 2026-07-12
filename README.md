@@ -1,6 +1,6 @@
 # Restaurante Las Güeras — sitio web
 
-Sitio estático (HTML/CSS/JS puro, sin backend ni frameworks) para la marisquería. Mobile-first, con galería, opiniones, indicador de abierto/cerrado y botón flotante de WhatsApp.
+Sitio estático (HTML/CSS/JS puro, sin frameworks) para la marisquería. Mobile-first, con galería, opiniones, indicador de abierto/cerrado, botón flotante de WhatsApp y un asistente virtual con IA (única pieza que necesita una función serverless — ver más abajo).
 
 ## Navegación
 
@@ -12,16 +12,18 @@ Dentro de la sección "Menú" las pestañas de categorías (Bebidas, Camarones, 
 
 ## Cómo verlo
 
-Abre `index.html` directamente en el navegador, o sirve la carpeta con cualquier servidor estático (por ejemplo `npx serve .`).
+Abre `index.html` directamente en el navegador, o sirve la carpeta con cualquier servidor estático (por ejemplo `npx serve .`). El asistente virtual (chat) es la única parte que **no** funciona así — necesita estar desplegado en Vercel con la función serverless activa (ver la sección "Asistente virtual").
 
 ## Estructura
 
 ```
-index.html          Marcado completo (header, secciones Inicio/Menú/Galería/Opiniones/Nosotros/Contacto)
+index.html          Marcado completo (header, secciones Inicio/Menú/Galería/Opiniones/Nosotros/Contacto, widget de chat)
 css/styles.css       Estilos mobile-first, paleta cálida (rojo, naranja, dorado) inspirada en el logo
-js/script.js         Menú del header, scroll-spy, pez de transición, pestañas del menú, indicador abierto/cerrado, año del footer
+js/script.js         Menú del header, scroll-spy, pez de transición, pestañas del menú, indicador abierto/cerrado, chat del asistente, año del footer
 assets/logo.png      Logo real del negocio (recortado a 512×512, fondo transparente)
 assets/gallery/      6 fotos de platillos usadas en la sección Galería
+api/chat.js          Función serverless (Vercel) que llama a la API de Claude para el asistente virtual
+package.json         Declara la dependencia @anthropic-ai/sdk que usa api/chat.js
 ```
 
 ## Logo y paleta de colores
@@ -50,6 +52,20 @@ Se agregaron dos secciones nuevas, accesibles también desde el menú ☰:
 
 - **Galería**: 6 fotos de platillos reales del restaurante (camarones al tamarindo, brochetas de camarón, ceviche de pulpo, langosta frita, camarones a la diabla y camarones al ajo), guardadas en `assets/gallery/` ya optimizadas para web.
 - **Opiniones**: calificación general "3.9 ★" como título de la subsección, y 3 reseñas reales de Google (Manuel Sosa, Cesar G y Carlos Asdrubal Perez Ceballo) con su calificación individual en estrellas. Si más adelante quieren mostrar reseñas distintas o actualizar la calificación, solo hay que editar el bloque `<section class="reviews-section" id="page-opiniones">` en `index.html`.
+
+## Asistente virtual
+
+El botón redondo arriba del de WhatsApp abre un chat que responde dudas de los visitantes (menú, precios, horario, ubicación, cómo reservar) usando la API de Claude. Todo lo que sabe el asistente está escrito en un solo lugar: la constante `SYSTEM_PROMPT` en `api/chat.js` (horario, teléfono, ubicación y el menú completo con precios). Si el menú o el horario cambian, hay que actualizarlo ahí también para que el asistente no dé información desactualizada.
+
+**Para que funcione necesitas, una sola vez, configurar en Vercel:**
+
+1. Consigue una clave de API en [console.anthropic.com](https://console.anthropic.com) (sección "API Keys"). *No compartas esta clave por chat ni la subas al repositorio.*
+2. En tu proyecto de Vercel: **Settings → Environment Variables** → agrega `ANTHROPIC_API_KEY` con esa clave (marca los 3 entornos: Production, Preview, Development).
+3. Vuelve a desplegar (o simplemente haz el primer deploy después de agregarla). Vercel detecta `api/chat.js` automáticamente como función serverless e instala `@anthropic-ai/sdk` a partir de `package.json`.
+
+**Costo:** se usa el modelo `claude-opus-4-8`. Para el volumen de preguntas típico de un restaurante esto debería mantenerse en unos pocos dólares al mes; si prefieres priorizar costo sobre calidad de respuesta, puedes cambiar `model: 'claude-opus-4-8'` por `'claude-haiku-4-5'` en `api/chat.js` (mucho más barato, de sobra para responder preguntas frecuentes).
+
+**Nota de seguridad:** el endpoint `/api/chat` es público (cualquiera que visite el sitio puede usarlo), como es normal en un chat de atención al cliente. No hay límite de uso configurado; si en algún momento ven picos de tráfico sospechoso o costo inesperado, se puede agregar un límite de solicitudes por IP o protección adicional en Vercel.
 
 ## Notas sobre el menú (actualizado a partir de fotos del menú físico)
 
