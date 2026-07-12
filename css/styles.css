@@ -243,27 +243,30 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 .fish-transition-svg {
   position: absolute;
   left: 50%;
-  top: 74%;
-  width: 150px;
-  margin-left: -75px;
+  bottom: 46px;
+  width: 90px;
+  margin-left: -45px;
   filter: drop-shadow(0 10px 24px rgba(43, 15, 10, 0.5));
 }
 .fish-transition.is-swimming {
   animation: fish-fade 1.5s ease-in-out;
 }
 .fish-transition.is-swimming .fish-transition-svg {
-  animation: fish-swim 1.5s cubic-bezier(.65, 0, .35, 1);
+  animation: fish-swim 1.5s ease-in-out;
 }
 @keyframes fish-fade {
   0%, 100% { opacity: 0; }
   12%, 88% { opacity: 1; }
 }
-/* El pez sale desde la parte baja de la pantalla y cruza de izquierda a derecha */
+/* El pez cruza de izquierda a derecha a la altura del botón de WhatsApp,
+   con un balanceo suave en vez de un salto brusco */
 @keyframes fish-swim {
-  0%   { transform: translateX(-65vw) translateY(18vh) rotate(-12deg) scale(0.55); }
-  30%  { transform: translateX(-25vw) translateY(3vh) rotate(2deg) scale(0.9); }
-  60%  { transform: translateX(20vw) translateY(-3vh) rotate(-2deg) scale(1); }
-  100% { transform: translateX(65vw) translateY(-6vh) rotate(-8deg) scale(0.85); }
+  0%   { transform: translateX(-65vw) translateY(0) rotate(-3deg); }
+  20%  { transform: translateX(-35vw) translateY(-8px) rotate(3deg); }
+  40%  { transform: translateX(-10vw) translateY(5px) rotate(-3deg); }
+  60%  { transform: translateX(15vw) translateY(-8px) rotate(3deg); }
+  80%  { transform: translateX(40vw) translateY(5px) rotate(-2deg); }
+  100% { transform: translateX(65vw) translateY(0) rotate(2deg); }
 }
 
 /* ==========================================================================
