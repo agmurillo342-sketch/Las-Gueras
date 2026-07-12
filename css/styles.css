@@ -215,7 +215,11 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   transition: transform 1.5s cubic-bezier(.65, 0, .35, 1);
 }
 .page.is-visible { display: block; }
-.page.is-active { transform: rotateY(0deg); z-index: 2; }
+/* Sin "transform" en reposo (a propósito): un ancestro con transform activo
+   rompe position:sticky de sus descendientes (como .menu-tabs) en varios
+   navegadores móviles. rotateY(0deg) y "none" se ven y transicionan igual,
+   así que solo se aplica un transform real mientras la página se va. */
+.page.is-active { z-index: 2; }
 .page.is-leaving {
   transform: rotateY(-115deg);
   z-index: 3;
