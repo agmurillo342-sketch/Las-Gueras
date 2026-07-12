@@ -10,9 +10,14 @@ Abre `index.html` directamente en el navegador, o sirve la carpeta con cualquier
 
 ```
 index.html        Marcado completo (header, hero, menú, nosotros, footer)
-css/styles.css     Estilos mobile-first, paleta inspirada en el mar
+css/styles.css     Estilos mobile-first, paleta cálida (rojo, naranja, dorado) inspirada en el logo
 js/script.js       Menú móvil, pestañas activas del menú, año del footer
+assets/logo.png    Logo real del negocio (recortado a 512×512, fondo transparente)
 ```
+
+## Logo y paleta de colores
+
+Se reemplazó el logo genérico por el logo real proporcionado (círculo rojo-naranja con el texto "Las Güeras" en cursiva blanca y ramas doradas), usado en el header, el hero (con un resplandor animado detrás), el footer y como favicon/`apple-touch-icon`. La paleta de colores en `css/styles.css` se rediseñó por completo con tonos cálidos tomados del logo (rojo ember, naranja coral, dorado, negro-café oscuro) en vez de los azules de mar originales. También se agregaron detalles para hacer el sitio más llamativo: botones con degradado, resplandor pulsante en el logo del hero y en el botón flotante de WhatsApp, subrayado dorado bajo los títulos de sección, y efecto hover en las tarjetas del menú.
 
 ## Pendiente por completar (buscar "pendiente" / "$--" / "XXXXXXXXXX" en el código)
 
