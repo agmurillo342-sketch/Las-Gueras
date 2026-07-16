@@ -5,22 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Menú de navegación (hamburguesa)
+  // Menú de navegación (hamburguesa): panel lateral en móvil, con overlay
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
+  const navOverlay = document.getElementById('navOverlay');
 
   const closeNav = () => {
     if (!mainNav || !navToggle) return;
     mainNav.classList.remove('is-open');
     navToggle.setAttribute('aria-expanded', 'false');
+    if (navOverlay) navOverlay.classList.remove('is-open');
   };
 
   if (navToggle && mainNav) {
     navToggle.addEventListener('click', () => {
       const isOpen = mainNav.classList.toggle('is-open');
       navToggle.setAttribute('aria-expanded', String(isOpen));
+      if (navOverlay) navOverlay.classList.toggle('is-open', isOpen);
     });
   }
+  if (navOverlay) navOverlay.addEventListener('click', closeNav);
 
   // El sitio se desliza normalmente por todas las secciones. Al elegir una
   // sección desde el menú (☰) además cruza la pantalla un pez, como si
