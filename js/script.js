@@ -306,4 +306,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 350);
     });
   }
+
+  // Galería: botón flotante que abre una ventana con las fotos (no viven
+  // en el scroll normal de la página, solo se ven al abrir esta ventana).
+  const galleryToggle = document.getElementById('galleryToggle');
+  const galleryModal = document.getElementById('galleryModal');
+  const galleryOverlay = document.getElementById('galleryOverlay');
+  const galleryClose = document.getElementById('galleryClose');
+
+  if (galleryToggle && galleryModal && galleryOverlay) {
+    const openGallery = () => {
+      galleryModal.classList.add('is-open');
+      galleryOverlay.classList.add('is-open');
+      galleryModal.setAttribute('aria-hidden', 'false');
+      galleryToggle.setAttribute('aria-expanded', 'true');
+    };
+    const closeGallery = () => {
+      galleryModal.classList.remove('is-open');
+      galleryOverlay.classList.remove('is-open');
+      galleryModal.setAttribute('aria-hidden', 'true');
+      galleryToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    galleryToggle.addEventListener('click', () => {
+      galleryModal.classList.contains('is-open') ? closeGallery() : openGallery();
+    });
+    galleryOverlay.addEventListener('click', closeGallery);
+    if (galleryClose) galleryClose.addEventListener('click', closeGallery);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeGallery();
+    });
+  }
 });

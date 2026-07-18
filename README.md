@@ -1,10 +1,10 @@
 # Restaurante Las Güeras — sitio web
 
-Sitio estático (HTML/CSS/JS puro, sin backend ni frameworks) para la marisquería. Mobile-first, con galería, opiniones, indicador de abierto/cerrado, botón flotante de WhatsApp y un asistente de chat que responde preguntas frecuentes.
+Sitio estático (HTML/CSS/JS puro, sin backend ni frameworks) para la marisquería. Mobile-first, con opiniones, indicador de abierto/cerrado, galería en ventana flotante, botón flotante de WhatsApp y un asistente de chat que responde preguntas frecuentes.
 
 ## Navegación
 
-El sitio es una página larga de scroll normal: todas las secciones (Inicio, Menú, Galería, Opiniones, Nosotros, Contacto) están una debajo de otra y se ven deslizando con normalidad, como cualquier sitio de una sola página.
+El sitio es una página larga de scroll normal: todas las secciones (Inicio, Menú, Opiniones, Nosotros, Contacto) están una debajo de otra y se ven deslizando con normalidad, como cualquier sitio de una sola página. La Galería no es una sección más: vive en una ventana flotante aparte (ver más abajo).
 
 Además, el menú de las tres líneas (☰) en el header permite saltar directo a cualquier sección. Al elegir una sección desde ahí, un pez rojo/naranja (`#fishTransition`, SVG inline en `index.html`) cruza la pantalla como si "volteara la página" hacia esa sección, mientras el navegador hace scroll suave (`scroll-behavior: smooth`) hasta ella. Esta animación solo ocurre al usar el menú ☰; el scroll normal (con el dedo o la rueda del mouse) no la dispara. Toda la orquestación vive en `js/script.js` (`triggerFishSwim`, listeners sobre `.nav-link[data-page]`); el enlace activo en el menú también se resalta automáticamente según la sección visible mientras se hace scroll (`IntersectionObserver`).
 
@@ -17,11 +17,11 @@ Abre `index.html` directamente en el navegador, o sirve la carpeta con cualquier
 ## Estructura
 
 ```
-index.html          Marcado completo (header, secciones Inicio/Menú/Galería/Opiniones/Nosotros/Contacto, widget de chat)
+index.html          Marcado completo (header, secciones Inicio/Menú/Opiniones/Nosotros/Contacto, widget de chat, ventana de galería)
 css/styles.css       Estilos mobile-first, paleta cálida (rojo, naranja, dorado) inspirada en el logo
-js/script.js         Menú del header, scroll-spy, pez de transición, pestañas del menú, indicador abierto/cerrado, asistente de chat, año del footer
+js/script.js         Menú del header, scroll-spy, pez de transición, pestañas del menú, indicador abierto/cerrado, asistente de chat, ventana de galería, año del footer
 assets/logo.png      Logo real del negocio (recortado a 512×512, fondo transparente)
-assets/gallery/      6 fotos de platillos usadas en la sección Galería
+assets/gallery/      10 fotos reales del restaurante mostradas en la ventana de Galería
 ```
 
 ## Logo y paleta de colores
@@ -43,12 +43,15 @@ El teléfono/WhatsApp real (+52 315 109 0369) ya está cargado en todos los enla
 
 Junto al horario (en "Nosotros" y en el footer) aparece un indicador de "Abierto ahora" / "Cerrado ahora" con un punto verde o rojo. Se calcula en el navegador del visitante (`js/script.js`, `updateOpenStatus`) comparando la hora local del dispositivo contra el rango 9:00–20:00; se recalcula cada minuto. Como usa la hora local del navegador, asume que el visitante está en la misma zona horaria que el restaurante — si reciben visitas de otros husos horarios y quieren fijar la zona exacta, avísenme para ajustarlo.
 
-## Galería y Opiniones
+## Opiniones
 
-Se agregaron dos secciones nuevas, accesibles también desde el menú ☰:
+Sección con la calificación general "3.9 ★" como título, y 3 reseñas reales de Google (Manuel Sosa, Cesar G y Carlos Asdrubal Perez Ceballo) con su calificación individual en estrellas. Si más adelante quieren mostrar reseñas distintas o actualizar la calificación, solo hay que editar el bloque `<section class="reviews-section" id="page-opiniones">` en `index.html`.
 
-- **Galería**: 6 fotos de platillos reales del restaurante (camarones al tamarindo, brochetas de camarón, ceviche de pulpo, langosta frita, camarones a la diabla y camarones al ajo), guardadas en `assets/gallery/` ya optimizadas para web.
-- **Opiniones**: calificación general "3.9 ★" como título de la subsección, y 3 reseñas reales de Google (Manuel Sosa, Cesar G y Carlos Asdrubal Perez Ceballo) con su calificación individual en estrellas. Si más adelante quieren mostrar reseñas distintas o actualizar la calificación, solo hay que editar el bloque `<section class="reviews-section" id="page-opiniones">` en `index.html`.
+## Galería (ventana flotante)
+
+La galería ya no es una sección del scroll: es un botón flotante naranja/carmesí (arriba del de WhatsApp y el del asistente) que abre una ventana con una cuadrícula de fotos, sin que las imágenes formen parte del recorrido normal de la página. Las 10 fotos actuales son fotos reales del restaurante y de bebidas/platillos en Punta Pérula, guardadas ya optimizadas en `assets/gallery/`.
+
+Para cambiar las fotos: reemplaza los archivos en `assets/gallery/` y actualiza las etiquetas `<img>` dentro de `<div class="gallery-modal-grid">` en `index.html` (cada una necesita su `src` y un `alt` descriptivo). La ventana se abre/cierra con `js/script.js` (sección "Galería"), igual patrón que el chat: botón flotante + overlay + tecla Escape para cerrar.
 
 ## Asistente de chat
 

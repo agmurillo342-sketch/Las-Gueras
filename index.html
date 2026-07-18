@@ -71,7 +71,6 @@
       <nav class="main-nav nav-desktop" id="mainNavDesktop">
         <a href="#page-inicio" class="nav-link is-current" data-page="inicio">Inicio</a>
         <a href="#page-menu" class="nav-link" data-page="menu">Menú</a>
-        <a href="#page-galeria" class="nav-link" data-page="galeria">Galería</a>
         <a href="#page-opiniones" class="nav-link" data-page="opiniones">Opiniones</a>
         <a href="#page-nosotros" class="nav-link" data-page="nosotros">Nosotros</a>
         <a href="#page-contacto" class="nav-link" data-page="contacto">Contacto</a>
@@ -98,7 +97,6 @@
   <nav class="main-nav nav-drawer" id="mainNav" aria-label="Navegación principal (móvil)">
     <a href="#page-inicio" class="nav-link is-current" data-page="inicio">Inicio</a>
     <a href="#page-menu" class="nav-link" data-page="menu">Menú</a>
-    <a href="#page-galeria" class="nav-link" data-page="galeria">Galería</a>
     <a href="#page-opiniones" class="nav-link" data-page="opiniones">Opiniones</a>
     <a href="#page-nosotros" class="nav-link" data-page="nosotros">Nosotros</a>
     <a href="#page-contacto" class="nav-link" data-page="contacto">Contacto</a>
@@ -410,34 +408,6 @@
     </div>
   </section>
 
-  <!-- ===== GALERÍA ===== -->
-  <section class="gallery-section page" id="page-galeria">
-    <div class="container">
-      <h2 class="section-title">Galería</h2>
-      <p class="section-subtitle">Un vistazo a nuestros platillos, preparados al momento con mariscos frescos.</p>
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="assets/gallery/camarones-tamarindo.jpg" alt="Camarones al tamarindo con ensalada y arroz" loading="lazy" width="1063" height="1100">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/gallery/brochetas-camaron.jpg" alt="Brochetas de camarón a la parrilla con arroz y pan" loading="lazy" width="1100" height="681">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/gallery/ceviche-pulpo.jpg" alt="Ceviche de pulpo y mariscos mixtos" loading="lazy" width="1008" height="504">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/gallery/langosta.jpg" alt="Langosta frita con ensalada, pan y arroz" loading="lazy" width="1100" height="731">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/gallery/camarones-diabla.jpg" alt="Camarones a la diabla con arroz y pan" loading="lazy" width="1100" height="673">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/gallery/camarones-ajo.jpg" alt="Camarones al ajo con verduras y arroz" loading="lazy" width="1100" height="792">
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== OPINIONES ===== -->
   <section class="reviews-section page" id="page-opiniones">
     <div class="container">
@@ -592,6 +562,32 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
       </button>
     </form>
+  </div>
+
+  <!-- Galería: botón flotante que abre una ventana con las fotos; no
+       forman parte del scroll normal de la página. -->
+  <button class="gallery-toggle" id="galleryToggle" aria-label="Ver galería de fotos" aria-expanded="false" aria-controls="galleryModal">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5zM7 7a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+  </button>
+
+  <div class="gallery-overlay" id="galleryOverlay" aria-hidden="true"></div>
+  <div class="gallery-modal" id="galleryModal" role="dialog" aria-label="Galería de fotos" aria-hidden="true">
+    <div class="gallery-modal-header">
+      <strong>Galería</strong>
+      <button class="gallery-modal-close" id="galleryClose" aria-label="Cerrar galería">&times;</button>
+    </div>
+    <div class="gallery-modal-grid">
+      <img src="assets/gallery/margarita-fresa.jpg" alt="Margarita de fresa" loading="lazy" width="618" height="1100">
+      <img src="assets/gallery/coctel-playa.jpg" alt="Coctel de mariscos en la playa" loading="lazy" width="443" height="960">
+      <img src="assets/gallery/michelada-playa-perula.jpg" alt="Michelada en Playa Punta Pérula" loading="lazy" width="728" height="1100">
+      <img src="assets/gallery/cervezas-hielo.jpg" alt="Cervezas Corona en hielo" loading="lazy" width="825" height="1100">
+      <img src="assets/gallery/cocos-frios.jpg" alt="Cocos fríos" loading="lazy" width="618" height="1100">
+      <img src="assets/gallery/margarita-mango.jpg" alt="Margaritas de mango" loading="lazy" width="540" height="960">
+      <img src="assets/gallery/margaritas-clasicas.jpg" alt="Margaritas clásicas con limón" loading="lazy" width="825" height="1100">
+      <img src="assets/gallery/ostiones-callo-vista-mar.jpg" alt="Ostiones y callo de hacha con vista al mar" loading="lazy" width="661" height="1100">
+      <img src="assets/gallery/parrillada-mariscos.jpg" alt="Parrillada de mariscos surtida" loading="lazy" width="1100" height="817">
+      <img src="assets/gallery/rincon-fotos-punta-perula.jpg" alt="Rincón de fotos del restaurante en Punta Pérula" loading="lazy" width="1100" height="800">
+    </div>
   </div>
 
   <script src="js/script.js"></script>
