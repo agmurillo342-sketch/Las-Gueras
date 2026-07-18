@@ -37,11 +37,11 @@ Se reemplazó el logo genérico por el logo real proporcionado (círculo rojo-na
 
 ## Horario y teléfono
 
-Se cargó "Todos los días: 9:00 a.m. – 8:00 p.m." en la sección Nosotros, el footer y el JSON-LD (`openingHoursSpecification`), asumiendo que el horario aplica los 7 días de la semana ya que no se especificaron días distintos. Si el restaurante cierra algún día o tiene horario distinto el fin de semana, avísame para ajustarlo.
+Se cargó "Todos los días: 9:00 a.m. – 7:00 p.m." en la sección Nosotros, el footer y el JSON-LD (`openingHoursSpecification`), asumiendo que el horario aplica los 7 días de la semana ya que no se especificaron días distintos. Si el restaurante cierra algún día o tiene horario distinto el fin de semana, avísame para ajustarlo.
 
 El teléfono/WhatsApp real (+52 315 109 0369) ya está cargado en todos los enlaces `tel:` y `wa.me`, y en el JSON-LD. Para los enlaces de WhatsApp se usó el formato `52` + 10 dígitos (sin el "1" extra que antes se usaba para celulares mexicanos), que es el formato vigente desde que México eliminó ese requisito en la marcación internacional.
 
-Junto al horario (en "Nosotros" y en el footer) aparece un indicador de "Abierto ahora" / "Cerrado ahora" con un punto verde o rojo. Se calcula en el navegador del visitante (`js/script.js`, `updateOpenStatus`) comparando la hora local del dispositivo contra el rango 9:00–20:00; se recalcula cada minuto. Como usa la hora local del navegador, asume que el visitante está en la misma zona horaria que el restaurante — si reciben visitas de otros husos horarios y quieren fijar la zona exacta, avísenme para ajustarlo.
+Junto al horario (en "Nosotros" y en el footer) aparece un indicador de "Abierto ahora" / "Cerrado ahora" con un punto verde o rojo. Se calcula en el navegador del visitante (`js/script.js`, `updateOpenStatus`) comparando la hora local del dispositivo contra el rango 9:00–19:00; se recalcula cada minuto. Como usa la hora local del navegador, asume que el visitante está en la misma zona horaria que el restaurante — si reciben visitas de otros husos horarios y quieren fijar la zona exacta, avísenme para ajustarlo.
 
 ## Opiniones
 

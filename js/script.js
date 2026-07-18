@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach((section) => sectionObserver.observe(section));
   }
 
-  // Indicador de abierto/cerrado según el horario (todos los días 9:00–20:00)
+  // Indicador de abierto/cerrado según el horario (todos los días 9:00–19:00)
   const isRestaurantOpenNow = () => {
     const now = new Date();
     const hour = now.getHours() + now.getMinutes() / 60;
-    return hour >= 9 && hour < 20;
+    return hour >= 9 && hour < 19;
   };
 
   const updateOpenStatus = () => {
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (/\b(hora|horario|abren|cierran|abierto|cerrado)\b/.test(msg)) {
         const openNow = isRestaurantOpenNow() ? 'En este momento estamos abiertos.' : 'En este momento estamos cerrados.';
-        return `Abrimos todos los días de 9:00 a.m. a 8:00 p.m. ${openNow}`;
+        return `Abrimos todos los días de 9:00 a.m. a 7:00 p.m. ${openNow}`;
       }
       if (/\b(direccion|ubicacion|donde estan|donde queda|mapa|llegar)\b/.test(msg)) {
         return [
