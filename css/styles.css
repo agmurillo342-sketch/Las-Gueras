@@ -118,7 +118,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 .logo-img {
   width: 46px;
   height: 46px;
-  border-radius: 50%;
+  border-radius: 22%;
   object-fit: contain;
   filter: drop-shadow(0 0 8px rgba(234, 88, 12, 0.35));
 }
@@ -349,7 +349,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   position: relative;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
+  border-radius: 22%;
   object-fit: contain;
   box-shadow: var(--shadow-lg);
 }
@@ -872,7 +872,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
   color: var(--color-white);
 }
 .chat-header-info { display: flex; align-items: center; gap: 10px; }
-.chat-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: contain; }
+.chat-avatar { width: 34px; height: 34px; border-radius: 22%; object-fit: contain; }
 .chat-header-info strong { display: block; font-family: var(--font-heading); font-size: 0.95rem; }
 .chat-header-info span { display: block; font-size: 0.72rem; color: var(--color-gold-soft); }
 .chat-close {
