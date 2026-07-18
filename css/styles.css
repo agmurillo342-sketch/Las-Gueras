@@ -88,6 +88,14 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 .btn-whatsapp:hover { background: var(--color-whatsapp-dark); }
 .btn .icon { width: 18px; height: 18px; fill: currentColor; }
 
+.btn-outline {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+}
+.btn-outline:hover { background: var(--color-white); color: var(--color-crimson); }
+.btn-sublabel { font-size: 0.78em; opacity: 0.85; font-weight: 500; }
+
 /* ==========================================================================
    Header — sticky, cristal esmerilado (backdrop-blur)
    ========================================================================== */
@@ -327,7 +335,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
 
 .hero-inner { position: relative; z-index: 1; }
 
-.hero-visual { display: flex; justify-content: center; }
+.hero-visual { display: flex; justify-content: center; margin-top: 44px; }
 .hero-logo-wrap {
   position: relative;
   width: 150px;
@@ -1070,7 +1078,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
    Media queries — tablet & escritorio
    ========================================================================== */
 @media (min-width: 720px) {
-  .hero-actions { flex-direction: row; justify-content: center; }
+  .hero-actions { flex-direction: row; justify-content: center; flex-wrap: wrap; }
   .hero-actions .btn { width: auto; }
 
   .menu-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1107,7 +1115,7 @@ h1, h2, h3 { font-family: var(--font-heading); margin: 0; line-height: 1.2; }
     gap: 48px;
   }
   .hero-copy { order: 1; }
-  .hero-visual { order: 2; }
+  .hero-visual { order: 2; margin-top: 0; }
   .hero-eyebrow, .hero-tagline { margin-left: 0; margin-right: 0; }
   .hero-tagline { margin-left: 0; }
   .hero-actions { justify-content: flex-start; }
